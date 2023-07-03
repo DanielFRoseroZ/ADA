@@ -151,7 +151,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-ProyectoADA-1.0
-.vscode
-Algoritmos
-ProcEntrada
+ProyectoADA-1.0.py
+.vscode/
+Algoritmos.py
+ProcEntrada.py

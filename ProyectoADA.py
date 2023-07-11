@@ -47,10 +47,6 @@ animales = {
     "Nutria" : 6,
 }
 
-# escena = ["Tapir", "Cienpies", "Libelula"]
-# escena_ordenada = ordenar_escena(escena, animales)
-# print(escena_ordenada)
-
 apertura = [
     ["Tapir", "Nutria", "Perro"],
     ["Tapir", "Perro", "Gato"],
@@ -58,12 +54,10 @@ apertura = [
     ["Gato", "Cienpies", "Libelula"]
 ]
 
-# apertura = [
-#     ["Tapir", "Nutria", "Perro"],
-#     ["Tapir", "Perro", "Gato"],
-#     ["Tapir", "Gato", "Cienpies"],
-#     ["Nutria", "Cienpies", "Libelula"]
-# ]
+parte = [
+    ["Tapir", "Nutria", "Perro"], 
+    ["Cienpies, Tapir, Gato"]
+]
 
 def ordenar_escenas_entrada(entrada, animales):
     gran_entrada = []
@@ -71,8 +65,6 @@ def ordenar_escenas_entrada(entrada, animales):
         entrada_ordenada = ordenar_escena(escena,animales)
         gran_entrada.append(entrada_ordenada)
     return gran_entrada
-
-#print(ordenar_escenas_entrada(apertura, animales))
 
 def ordenar_apertura_max_valor(entrada, animales):
     apertura = ordenar_escenas_entrada(entrada, animales)
@@ -106,8 +98,6 @@ def ordenar_apertura_max_valor(entrada, animales):
 
     return apertura_ordenada
 
-#print(ordenar_apertura(apertura, animales))
-
 def ordenar_apertura(entrada, animales):
     apertura = ordenar_apertura_max_valor(entrada, animales)
     sum_escenas = []
@@ -140,4 +130,6 @@ def ordenar_apertura(entrada, animales):
 
     return apertura_ordenada
 
-print(ordenar_apertura(apertura, animales))
+#print(ordenar_apertura(apertura, animales))
+
+print(ordenar_apertura(parte, animales))

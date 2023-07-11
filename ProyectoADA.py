@@ -54,10 +54,18 @@ apertura = [
     ["Gato", "Cienpies", "Libelula"]
 ]
 
-parte = [
+parte1 = [
     ["Tapir", "Nutria", "Perro"], 
     ["Cienpies", "Tapir", "Gato"]
 ]
+
+parte2 = [
+    ["Tapir", "Perro", "Gato"], 
+    ["Gato", "Cienpies", "Libelula"]
+]
+
+
+partes = [parte1, parte2]
 
 def ordenar_escenas_entrada(entrada, animales):
     gran_entrada = []
@@ -129,6 +137,12 @@ def ordenar_apertura(entrada, animales):
         count[num] -= 1
 
     return apertura_ordenada
+
+def ordenar_partes(partes, animales):
+    for parte in partes:
+        parte = ordenar_apertura(parte, animales)
+    return partes
+print(ordenar_partes(partes, animales))
 
 ordenar_apertura(apertura, animales)
 

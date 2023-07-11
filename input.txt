@@ -1,0 +1,17 @@
+n = 9;
+
+m = 4;
+
+k = 3;
+
+animales = {leon, panteranegra, cebra, cocodrilo, boa, loro, caiman, tigre, capibara};
+
+grandezas = {9, 7, 6, 5, 4, 2, 3, 8, 1};
+
+apertura = {{caiman, capibara, loro}, {boa, caiman, capibara}, {cocodrilo, capibara, loro}, {panteranegra, cocodrilo, loro}, {tigre, loro, capibara}, {leon, caiman, loro}, {leon, cocodrilo, boa}, {leon, panteranegra, cebra}, {tigre, cebra, panteranegra}};
+
+parte = {{caiman, capibara, loro}, {tigre, loro, capibara}, {tigre, cebra, panteranegra}}
+
+parte = {{panteranegra, cocodrilo, loro}, {leon, panteranegra, cebra}, {cocodrilo, capibara, loro}}
+
+parte = {{boa, caiman, capibara}, {leon, caiman, loro}, {leon, cocodrilo, boa}}

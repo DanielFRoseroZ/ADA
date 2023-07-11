@@ -18,7 +18,7 @@
 
 #Se crea una clase escena, a la cual pertenecerán todas las escenas que hacen parte del espectaculo.
 #Una escena cuenta con una lista de animales que participan en ella y la parte del espectaculo a la que pertenece.
-#La parte del espectaculo a la que pertenecen se asigna de forma arbitraria, este valor se utilizará luego para ordenar las escenas. #CONCLUSION, SE HACE QUE TODOS LOS INPUTS SIGAN ESA ESTRUCTURA ESPECIFICA Y SE MENCIONA EN EL INFORME, QUE TODAS LAS ENTRADAS SIGUEN ESE FORMATO 
+#La parte del espectaculo a la que pertenecen se asigna de forma arbitraria, este valor se utilizará luego para ordenar las escenas.
 class Escena:
 
     def __init__(self, lista, parte):
@@ -30,27 +30,34 @@ class Escena:
 
 #----------------------FUNCIONES AUXILIARES----------------------#
 
-#Funcion que suma la grandeza de los 3 animales que participan en una escena.
-#Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
-#Retorna la suma de las grandeza de los animales que participan en la escena.
 def sum_escena(escena,animales):
+    '''
+    Funcion que suma la grandeza de los 3 animales que participan en una escena.
+    Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
+    Retorna la suma de las grandeza de los animales que participan en la escena.
+    '''
     suma = 0
     for animal in escena.lista:
         suma += animales[animal]
     return suma
 
-#Funcion que retorna el animal de mayor grandeza que participa en una escena.
-#Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
-#Retorna el animal de mayor grandeza que participa en la escena.
 def max_escena(escena,animales):
+    '''
+    Funcion que retorna la grandeza del animal de mayor grandeza que participa en una escena.
+    Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
+    Retorna la suma de las grandeza de los animales que participan en la escena.
+    '''
     maximo = animales[escena.lista[2]]
     return maximo
 
-#Funcion que ordena los 3 animales que participan en una escena de forma ascendente.
-#Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
-#Retorna la escena con los animales ordenados de forma ascendente.
-#
 def ordenar_escena(escena, animales):
+    '''
+    Funcion que ordena los 3 animales que participan en una escena de forma ascendente.
+    Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
+    Retorna la escena con los animales ordenados de forma ascendente.
+    '''
+    #Ya que el numero de animales por escena es fijo, la complejidad de esta funcion es O(1).
+
     for i in range(1, len(escena.lista)):
         key = escena.lista[i]
         j = i-1
@@ -61,60 +68,50 @@ def ordenar_escena(escena, animales):
         escena.lista[j+1] = key
     return escena
 
-animales = {
-    "Leon" : 9,
-    "PanteraNegra" : 7,
-    "Cebra" : 6,
-    "Cocodrilo" : 5,
-    "Boa" : 4,
-    "Loro" : 2, 
-    "Caiman" : 3,
-    "Tigre" : 8,
-    "Capibara" : 1,
-}
+def suma_total_parte(parte, animales):
+    '''
+    Funcion que suma la grandeza de todas las escenas que hacen parte de una parte del espectaculo.
+    Recibe como parametros una parte del espectaculo y el diccionario de animales con sus respectivas grandezas.
+    Retorna la suma de las grandeza de todas las escenas que hacen parte de la parte del espectaculo.
+    '''
+    #Ya que esta función recorre la parte una unica vez y aplica la función sum_escena a cada escena, la complejidad de esta función es O(n).
 
-partes = [
-    [
-        ["Caiman", "Capibara", "Loro"],
-        ["Tigre", "Loro", "Capibara"],
-        ["Tigre", "Cebra", "PanteraNegra"],
-    ],
-    [
-        ["PanteraNegra", "Cocodrilo", "Loro"],
-        ["Leon", "PanteraNegra", "Cebra"],
-        ["Cocodrilo", "Capibara", "Loro"]
-    ],
-    [
-        ["Boa", "Caiman", "Capibara"], 
-        ["Leon", "Caiman", "Loro"],
-        ["Leon", "Cocodrilo", "Boa"]
-    ]
-]
+    suma = 0
+    for escena in parte:
+        suma += sum_escena(escena, animales)
+    return suma
 
-for i, parte in enumerate(partes):
-    for j, escena in enumerate(parte):
-        parte[j] = Escena(escena, i)
 
-apertura = []
-for parte in partes:
-    apertura += parte
-
-# ARREGLO ORDENADO
-# ARREGLO P1
-# ARREGLO P2
+#----------------------FUNCIONES PRINCIPALES DE ORDENAMIENTO----------------------#
 
 def ordenar_escenas_entrada(entrada, animales):
-    gran_entrada = []
-    for escena in entrada:
-        entrada_ordenada = ordenar_escena(escena,animales)
-        gran_entrada.append(entrada_ordenada)
-    return gran_entrada
+    '''
+    Funcion que ordena las escenas de la apertura aplicando la funcion ordenar_escena a cada escena que hace parte de la apertura.
+    Recibe como parametros la apertura y el diccionario de animales con sus respectivas grandezas.
+    Retorna la apertura con las escenas ordenadas.
+    '''
+    #Ya que esta función recorre la apertura una unica vez y aplica la función ordenar_escena a cada escena, la complejidad de esta función es O(n).
 
-def ordenar_apertura_max_valor(entrada, animales):
+    entrada_ordenada = []
+    for escena in entrada:
+        parte_orden = ordenar_escena(escena,animales)
+        entrada_ordenada.append(parte_orden)
+    return entrada_ordenada
+
+def ordenar_entrada_max_valor(entrada, animales):
+    '''
+    Funcion que ordena las escenas de la apertura segun el animal con mayor grandeza en cada escena, utilizando el algoritmo de ordenamiento Counting Sort.
+    Recibe como parametros la apertura y el diccionario de animales con sus respectivas grandezas.
+    Retorna la apertura con las escenas ordenadas segun lo establecido.
+    '''
+    #Ya que esta función ordena la apertura utilizando el algoritmo de ordenamiento Counting Sort, la complejidad de esta función es O(n).
+
     apertura = ordenar_escenas_entrada(entrada, animales)
+
+    # # Almacenar la grandeza individual mas alta de cada escena que hace parte de la apertura.
     max_escenas = []
     for escena in apertura:
-        max_escenas.append(max_escena(escena, animales))
+        max_escenas.append(max_escena(escena, animales)) #Se recorre la apertura una unica vez encontrando la grandeza individual de cada escena, por lo que la complejidad de esta linea es O(n).
 
     # # Encontrar el rango máximo del arreglo
     max_val = max(max_escenas) + 1
@@ -143,33 +140,35 @@ def ordenar_apertura_max_valor(entrada, animales):
     return apertura_ordenada
 
 def ordenar_apertura(entrada, animales):
-    apertura = ordenar_apertura_max_valor(entrada, animales)
-    print("----DEBUG----")
-    print([escena.lista for escena in apertura])
+    '''
+    Funcion que ordena las escenas de la apertura segun la grandeza total de las escenas que la componen, utilizando el algoritmo de ordenamiento Counting Sort.
+    Recibe como parametros la apertura y el diccionario de animales con sus respectivas grandezas.
+    Retorna la apertura con las escenas ordenadas segun lo establecido.
+    Se entiende que la grandeza total de una escena es la suma de las grandezas individuales de cada animal que hace parte de la escena.
+    '''
+
+    #Ya que esta función ordena la apertura utilizando el algoritmo de ordenamiento Counting Sort, la complejidad de esta función es O(n).
+
+    apertura = ordenar_entrada_max_valor(entrada, animales)
+
+    # # Almacenar la grandeza total de cada escena que hace parte de la apertura.
     sum_escenas = []
     for escena in apertura:
-        sum_escenas.append(sum_escena(escena,animales))
+        sum_escenas.append(sum_escena(escena,animales)) #Se recorre la apertura una unica vez encontrando la grandeza total de cada escena, por lo que la complejidad de esta linea es O(n).
 
-    print(sum_escenas[::-1])
     # # Encontrar el rango máximo del arreglo
     max_val = max(sum_escenas) + 1
 
     # # Inicializar un arreglo de conteo con ceros
     count = [0] * max_val
-    
-    print("count", count)
 
     # # Contar la frecuencia de cada elemento en el arreglo de entrada
     for num in sum_escenas:
         count[num] += 1
 
-    print("count2", count)
-
     # # Calcular las posiciones finales de cada elemento
     for i in range(1, max_val):
         count[i] += count[i - 1]
-
-    print("count3", count)
 
     apertura_ordenada = [0] * len(sum_escenas)
 
@@ -177,27 +176,20 @@ def ordenar_apertura(entrada, animales):
 
     # # Colocar cada elemento en su posición correcta en el arreglo de salida
     for num in sum_escenas[::-1]:
-        apertura_ordenada[count[num] - 1] = apertura[i]   #REGALARON EL ONLY DE UNA VIEJA QUE ESTA RE BUENA, QUE BENDICION ----PASELO---- AHI VOY, ESTA EN WPP
+        apertura_ordenada[count[num] - 1] = apertura[i]
         i -= 1
         count[num] -= 1 
-        print("count4", count, i+1)
 
     return apertura_ordenada
 
-ordenada = ordenar_apertura(apertura, animales)
-
-partes_ordenadas = [[] for i in range(len(partes))]
-
-for escena in ordenada:
-    partes_ordenadas[escena.parte].append(escena)   
-
-def suma_total_parte(parte, animales):
-    suma = 0
-    for escena in parte:
-        suma += sum_escena(escena, animales)
-    return suma
-
 def ordenar_partes(partes, animales):
+    '''
+    Funcion que ordena las partes segun la suma de la grandeza total de las escenas que la componen, utilizando el algoritmo de ordenamiento Counting Sort.
+    Recibe como parametros las partes y el diccionario de animales con sus respectivas grandezas.
+    Retorna las partes con las escenas ordenadas segun lo establecido.
+    '''
+    #Ya que esta función ordena las partes utilizando el algoritmo de ordenamiento Counting Sort, la complejidad de esta función es O(n).
+
     sum_partes = []
     for parte in partes:
         sum_partes.append(suma_total_parte(parte,animales))
@@ -228,17 +220,69 @@ def ordenar_partes(partes, animales):
 
     return partes_ordenadas
 
-print("Apertura")
-print([(escena.lista, sum_escena(escena, animales)) for escena in ordenada])
+#----------------------LECTURA DE DATOS----------------------#
+entrada = "./input.txt"
+# Leer el archivo de entrada en una lista con las lineas
+with open(entrada) as f:
+    lineas = f.read().splitlines()
 
-print("Partes ordenadas por grandeza total")
+# Nombres de los animales
+animales_b = lineas[6].split("animales = {")[1].split("}")[0]
+# Grandezas de los animales
+grandezas_b = lineas[8].split("grandezas = {")[1].split("}")[0]
+
+# Crea el diccionario con los animales
+animales_unir = animales_b.split(",")
+grandezas_unir = grandezas_b.split(",")
+
+animales = {}
+for i, animal in enumerate(animales_unir):
+    animales[animal.replace(" ", "")] = int(grandezas_unir[i])
+
+# Cantidad de partes
+m = int(lineas[2].split("m = ")[1][0])
+
+# Crea una lista con todas las partes\
+partes = []
+
+for i in range(12, (m-1)*2+12, 2):
+    sub_parte = []
+    parte = lineas[i].split("parte = {{")[1].split("}}")[0]
+    for parte in parte.split("}, {"):
+        sub_parte.append(parte.split(", "))
+    
+    partes.append(sub_parte)
+
+# Crea las escenas de cada parte
+for i, parte in enumerate(partes):
+    for j, escena in enumerate(parte):
+        parte[j] = Escena(escena, i)
+
+# Crea la apertura uniendo todas las partes
+apertura = []
+for parte in partes:
+    apertura += parte
+    
+# ----------------------EJECUCION DEL ALGORITMO----------------------#
+ordenada = ordenar_apertura(apertura, animales) # apertura ordenada
+
+partes_ordenadas = [[] for i in range(len(partes))]
+
+for escena in ordenada:
+    partes_ordenadas[escena.parte].append(escena)   
+
+#----------------------SALIDA DE DATOS----------------------#
+print("El orden en el que se debe presentar el espectaculo es:")
+# print("Apertura:", [(escena.lista, sum_escena(escena, animales)) for escena in ordenada])
+print("Apertura:", [escena.lista for escena in ordenada])
+
 partes2 = ordenar_partes(partes_ordenadas, animales)
 for i, parte in enumerate(partes2):
     print("Parte", i+1, ":", [escena.lista for escena in parte], "Grandeza total:", suma_total_parte(partes2[i], animales))
 
 
 
-# Estadisticas
+#----------------------ESTADISTICOS----------------------#
 participaciones = {}
 for key in animales:
     participaciones[key] = 0
@@ -261,6 +305,7 @@ escena_min_g = []
 escena_max_g = []
 for escena in ordenada:
     grandeza = sum_escena(escena, animales)
+    # Encontrar las escenas con la grandeza minima y maxima
     if grandeza == min_grandeza:
         escena_min_g.append(escena)
     if grandeza == max_grandeza:
@@ -270,6 +315,7 @@ for escena in ordenada:
 max_participacion = float('-inf')
 min_participacion = float('inf')
 for key, value in participaciones.items():
+    # Calcula el valor de mayor y menor participacion
     if value > max_participacion:
         max_participacion = value
     if value < min_participacion:
@@ -278,6 +324,7 @@ for key, value in participaciones.items():
 animal_max_p = []
 animal_min_p = []
 for key, value in participaciones.items():
+    # Encontrar los animales con la mayor y menor participacion
     if value == max_participacion:
         animal_max_p.append(key)
     if value == min_participacion:
@@ -289,10 +336,9 @@ for escena in ordenada:
     promedio_grandeza += sum_escena(escena, animales)
 promedio_grandeza /= len(ordenada)
 
-
-print("El animal que participo en mas escenas fue", animal_max_p, "con", max_participacion*2, "escenas")
-print("El animal que participo en menos escenas fue", animal_min_p, "con", min_participacion*2, "escenas")
+#----------------------IMPRESION DE ESTADISTICOS----------------------#
+print("El animal que participo en mas escenas dentro del espectaculo fue", animal_max_p, "con", max_participacion*2, "escenas")
+print("El animal que menos participo en escenas dentro del espectaculo fue", animal_min_p, "con", min_participacion*2, "escenas")
 print("La escena con menor grandeza total fue", [escena.lista for escena in escena_min_g], "con", min_grandeza, "grandeza total")
 print("La escena con mayor grandeza total fue", [escena.lista for escena in escena_max_g], "con", max_grandeza, "grandeza total")
 print("El promedio de grandeza total del espectaculo fue", promedio_grandeza)
-

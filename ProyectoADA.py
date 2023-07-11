@@ -16,26 +16,34 @@
 # Máximo número de escenas posibles: (n^3-3n^2+2n)/6
 # Máximo valor que puede tomar m: depende de k en el mayor caso
 # Máximo valor que puede tomar k: depende de m en el mayor caso 
+class Escena:
+
+    def __init__(self, lista, parte):
+        self.lista = lista
+        self.parte = parte
+
+    def __str__(self):
+        return str(self.lista)
 
 def sum_escena(escena,animales):
     suma = 0
-    for animal in escena:
+    for animal in escena.lista:
         suma += animales[animal]
     return suma
 
 def max_escena(escena,animales):
-    maximo = animales[escena[2]]
+    maximo = animales[escena.lista[2]]
     return maximo
 
 def ordenar_escena(escena, animales):
-    for i in range(1, len(escena)):
-        key = escena[i]
+    for i in range(1, len(escena.lista)):
+        key = escena.lista[i]
         j = i-1
-        while j >= 0 and animales[key] < animales[escena[j]]:
-            escena[j+1] = escena[j]
-            escena[j] = key
+        while j >= 0 and animales[key] < animales[escena.lista[j]]:
+            escena.lista[j+1] = escena.lista[j]
+            escena.lista[j] = key
             j -= 1
-        escena[j+1] = key
+        escena.lista[j+1] = key
     return escena
 
 animales = {
@@ -47,25 +55,32 @@ animales = {
     "Nutria" : 6,
 }
 
-apertura = [
-    ["Tapir", "Nutria", "Perro"],
-    ["Tapir", "Perro", "Gato"],
-    ["Cienpies", "Tapir", "Gato"],
-    ["Gato", "Cienpies", "Libelula"]
+partes = [
+    [
+        ["Tapir", "Nutria", "Perro"],           # Escena(["Tapir", "Nutria", "Perro"], 1)
+        ["Cienpies", "Tapir", "Gato"]           # Escena(["Cienpies", "Tapir", "Gato"], 1)
+    ],
+    [
+        ["Tapir", "Perro", "Gato"],             # Escena(["Tapir", "Perro", "Gato"], 2)
+        ["Gato", "Cienpies", "Libelula"],       # Escena(["Gato", "Cienpies", "Libelula"], 2)
+    ]
 ]
 
-parte1 = [
-    ["Tapir", "Nutria", "Perro"], 
-    ["Cienpies", "Tapir", "Gato"]
-]
+for i, parte in enumerate(partes):
+    for j, escena in enumerate(parte):
+        parte[j] = Escena(escena, i)
 
-parte2 = [
-    ["Tapir", "Perro", "Gato"], 
-    ["Gato", "Cienpies", "Libelula"]
-]
+apertura = []
+for parte in partes:
+    apertura += parte
 
+print(partes)
 
-partes = [parte1, parte2]
+#apertura = parte1 + parte2
+
+# ARREGLO ORDENADO
+# ARREGLO P1
+# ARREGLO P2
 
 def ordenar_escenas_entrada(entrada, animales):
     gran_entrada = []
@@ -138,15 +153,19 @@ def ordenar_apertura(entrada, animales):
 
     return apertura_ordenada
 
-def ordenar_partes(partes, animales):
-    for parte in partes:
-        parte = ordenar_apertura(parte, animales)
-    return partes
-print(ordenar_partes(partes, animales))
+ordenada = ordenar_apertura(apertura, animales)
 
-ordenar_apertura(apertura, animales)
-
-for escena in apertura:
-    print(escena)
+for escena in ordenada:
+    print(escena, escena.parte)
 
 #print(ordenar_apertura(parte, animales))
+
+partes_ordenadas = [[] for i in range(len(partes))]
+
+for escena in ordenada:
+    partes_ordenadas[escena.parte].append(escena)
+
+
+print("Partes ordenadas:")
+for i, parte in enumerate(partes_ordenadas):
+    print("Parte", i+1, ":", [escena.lista for escena in parte])

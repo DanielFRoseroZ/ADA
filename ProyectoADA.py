@@ -56,7 +56,7 @@ apertura = [
 
 parte = [
     ["Tapir", "Nutria", "Perro"], 
-    ["Cienpies, Tapir, Gato"]
+    ["Cienpies", "Tapir", "Gato"]
 ]
 
 def ordenar_escenas_entrada(entrada, animales):
@@ -130,6 +130,9 @@ def ordenar_apertura(entrada, animales):
 
     return apertura_ordenada
 
-#print(ordenar_apertura(apertura, animales))
+ordenar_apertura(apertura, animales)
 
-print(ordenar_apertura(parte, animales))
+for escena in apertura:
+    print(escena)
+
+#print(ordenar_apertura(parte, animales))

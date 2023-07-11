@@ -63,7 +63,7 @@ partes = [
     [
         ["Tapir", "Perro", "Gato"],             # Escena(["Tapir", "Perro", "Gato"], 2)
         ["Gato", "Cienpies", "Libelula"],       # Escena(["Gato", "Cienpies", "Libelula"], 2)
-    ]
+    ],
 ]
 
 for i, parte in enumerate(partes):
@@ -73,10 +73,6 @@ for i, parte in enumerate(partes):
 apertura = []
 for parte in partes:
     apertura += parte
-
-print(partes)
-
-#apertura = parte1 + parte2
 
 # ARREGLO ORDENADO
 # ARREGLO P1
@@ -155,17 +151,116 @@ def ordenar_apertura(entrada, animales):
 
 ordenada = ordenar_apertura(apertura, animales)
 
-for escena in ordenada:
-    print(escena, escena.parte)
-
-#print(ordenar_apertura(parte, animales))
+# for escena in ordenada:
+#     print(escena, escena.parte)
 
 partes_ordenadas = [[] for i in range(len(partes))]
 
 for escena in ordenada:
-    partes_ordenadas[escena.parte].append(escena)
+    partes_ordenadas[escena.parte].append(escena)   
+
+def suma_total_parte(parte, animales):
+    suma = 0
+    for escena in parte:
+        suma += sum_escena(escena, animales)
+    return suma
+
+def ordenar_partes(partes, animales):
+    sum_partes = []
+    for parte in partes:
+        sum_partes.append(suma_total_parte(parte,animales))
+
+    # # Encontrar el rango máximo del arreglo
+    max_val = max(sum_partes) + 1
+
+    # # Inicializar un arreglo de conteo con ceros
+    count = [0] * max_val
+
+    # # Contar la frecuencia de cada elemento en el arreglo de entrada
+    for num in sum_partes:
+        count[num] += 1
+
+    # # Calcular las posiciones finales de cada elemento
+    for i in range(1, max_val):
+        count[i] += count[i - 1]
+
+    partes_ordenadas = [0] * len(sum_partes)
+
+    i = 0
+
+    # # Colocar cada elemento en su posición correcta en el arreglo de salida
+    for num in sum_partes:
+        partes_ordenadas[count[num] - 1] = partes[i]
+        i += 1
+        count[num] -= 1
+
+    return partes_ordenadas
+
+print("Apertura")
+print([escena.lista for escena in ordenada])
+
+print("Partes ordenadas por grandeza total")
+partes2 = ordenar_partes(partes_ordenadas, animales)
+for i, parte in enumerate(partes2):
+    print("Parte", i+1, ":", [escena.lista for escena in parte], "Grandeza total:", suma_total_parte(partes2[i], animales))
 
 
-print("Partes ordenadas:")
-for i, parte in enumerate(partes_ordenadas):
-    print("Parte", i+1, ":", [escena.lista for escena in parte])
+
+# Estadisticas
+participaciones = {}
+for key in animales:
+    participaciones[key] = 0
+
+min_grandeza = float('inf')
+max_grandeza = float('-inf')
+for escena in ordenada:
+    # Calcular las participaciones de cada animal
+    for animal in escena.lista:
+        participaciones[animal] += 1
+
+    # Calcular la grandeza de la escena
+    grandeza = sum_escena(escena, animales)
+    if grandeza < min_grandeza:
+        min_grandeza = grandeza
+    if grandeza > max_grandeza:
+        max_grandeza = grandeza
+
+escena_min_g = []
+escena_max_g = []
+for escena in ordenada:
+    grandeza = sum_escena(escena, animales)
+    if grandeza == min_grandeza:
+        escena_min_g.append(escena)
+    if grandeza == max_grandeza:
+        escena_max_g.append(escena)
+
+
+max_participacion = float('-inf')
+min_participacion = float('inf')
+for key, value in participaciones.items():
+    if value > max_participacion:
+        max_participacion = value
+    if value < min_participacion:
+        min_participacion = value
+
+animal_max_p = []
+animal_min_p = []
+for key, value in participaciones.items():
+    if value == max_participacion:
+        animal_max_p.append(key)
+    if value == min_participacion:
+        animal_min_p.append(key)
+
+# Calcula el promedio de grandeza de todo el espectaculo
+promedio_grandeza = 0
+for escena in ordenada:
+    promedio_grandeza += sum_escena(escena, animales)
+promedio_grandeza /= len(ordenada)
+
+
+print("El animal que participo en mas escenas fue", animal_max_p, "con", max_participacion*2, "escenas")
+print("El animal que participo en menos escenas fue", animal_min_p, "con", min_participacion*2, "escenas")
+print("La escena con menor grandeza total fue", [escena.lista for escena in escena_min_g], "con", min_grandeza, "grandeza total")
+print("La escena con mayor grandeza total fue", [escena.lista for escena in escena_max_g], "con", max_grandeza, "grandeza total")
+print("El promedio de grandeza total del espectaculo fue", promedio_grandeza)
+

@@ -152,5 +152,6 @@ cython_debug/
 #.idea/
 
 ProyectoADA-1.0.py
+ProcEntrada.py
 .vscode/
 Algoritmos.py

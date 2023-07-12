@@ -3,7 +3,7 @@
 # Ordenar el arreglo de la apertura tomando como valor clave, el elemento de mayor valor de cada escena (el ultimo)
 # Ordenar nuevamente el arreglo de la apertura tomando como valor clave, la suma de todos los valores de cada escena
 # -----------------------------
-# Una vez ordenada
+# Una vez ordenada la entrada recorrer el arreglo de entrada ordenando las escenas en las partes correspondientes
 # -----------------------------
 # Counting sort: O(n) porque el valor mas grande del arreglo es 3n-3
 # Recorrer el arreglo inicial y ordenar cada escena: O(3n)
@@ -27,6 +27,49 @@ class Escena:
 
     def __str__(self):
         return str(self.lista)
+
+#----------------------LECTURA DE DATOS----------------------#
+entrada = "./input.txt"
+# Leer el archivo de entrada en una lista con las lineas
+with open(entrada) as f:
+    lineas = f.read().splitlines()
+
+# Nombres de los animales
+animales_b = lineas[6].split("animales = {")[1].split("}")[0]
+# Grandezas de los animales
+grandezas_b = lineas[8].split("grandezas = {")[1].split("}")[0]
+
+# Crea el diccionario con los animales
+animales_unir = animales_b.split(",")
+grandezas_unir = grandezas_b.split(",")
+
+animales = {}
+for i, animal in enumerate(animales_unir):
+    animales[animal.replace(" ", "")] = int(grandezas_unir[i])
+
+# Cantidad de partes
+m = int(lineas[2].split("m = ")[1][0])
+
+# Crea una lista con todas las partes\
+partes = []
+
+for i in range(12, (m-1)*2+12, 2):
+    sub_parte = []
+    parte = lineas[i].split("parte = {{")[1].split("}}")[0]
+    for parte in parte.split("}, {"):
+        sub_parte.append(parte.split(", "))
+    
+    partes.append(sub_parte)
+
+# Crea las escenas de cada parte
+for i, parte in enumerate(partes):
+    for j, escena in enumerate(parte):
+        parte[j] = Escena(escena, i)
+
+# Crea la apertura uniendo todas las partes
+apertura = []
+for parte in partes:
+    apertura += parte
 
 #----------------------FUNCIONES AUXILIARES----------------------#
 
@@ -219,49 +262,6 @@ def ordenar_partes(partes, animales):
         count[num] -= 1
 
     return partes_ordenadas
-
-#----------------------LECTURA DE DATOS----------------------#
-entrada = "./input.txt"
-# Leer el archivo de entrada en una lista con las lineas
-with open(entrada) as f:
-    lineas = f.read().splitlines()
-
-# Nombres de los animales
-animales_b = lineas[6].split("animales = {")[1].split("}")[0]
-# Grandezas de los animales
-grandezas_b = lineas[8].split("grandezas = {")[1].split("}")[0]
-
-# Crea el diccionario con los animales
-animales_unir = animales_b.split(",")
-grandezas_unir = grandezas_b.split(",")
-
-animales = {}
-for i, animal in enumerate(animales_unir):
-    animales[animal.replace(" ", "")] = int(grandezas_unir[i])
-
-# Cantidad de partes
-m = int(lineas[2].split("m = ")[1][0])
-
-# Crea una lista con todas las partes\
-partes = []
-
-for i in range(12, (m-1)*2+12, 2):
-    sub_parte = []
-    parte = lineas[i].split("parte = {{")[1].split("}}")[0]
-    for parte in parte.split("}, {"):
-        sub_parte.append(parte.split(", "))
-    
-    partes.append(sub_parte)
-
-# Crea las escenas de cada parte
-for i, parte in enumerate(partes):
-    for j, escena in enumerate(parte):
-        parte[j] = Escena(escena, i)
-
-# Crea la apertura uniendo todas las partes
-apertura = []
-for parte in partes:
-    apertura += parte
     
 # ----------------------EJECUCION DEL ALGORITMO----------------------#
 ordenada = ordenar_apertura(apertura, animales) # apertura ordenada

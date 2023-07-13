@@ -1,17 +1,27 @@
-n = 9;
+n = 30;
 
-m = 4;
+m = 9;
 
-k = 3;
+k = 10;
 
-animales = {leon, panteranegra, cebra, cocodrilo, boa, loro, caiman, tigre, capibara};
+animales = {perro, gato, rana, sapo, delfin, ballena, zorro, tigre, leon, lobo, elefante, rinoceronte, jirafa, hipopotamo, cocodrilo, serpiente, tortuga, cebra, jirafa, mono, panda, oso, conejo, camello, murcielago, canguro, koala, pinguino, loro, pinguino};
 
-grandezas = {9, 7, 6, 5, 4, 2, 3, 8, 1};
+grandezas = {17, 4, 28, 10, 21, 5, 12, 26, 30, 20, 8, 15, 11, 14, 23, 18, 2, 7, 1, 25, 16, 27, 13, 19, 6, 3, 22, 9, 24, 29};
 
-apertura = {{caiman, capibara, loro}, {boa, caiman, capibara}, {cocodrilo, capibara, loro}, {panteranegra, cocodrilo, loro}, {tigre, loro, capibara}, {leon, caiman, loro}, {leon, cocodrilo, boa}, {leon, panteranegra, cebra}, {tigre, cebra, panteranegra}};
+apertura = {{gato, rana, sapo}, {perro, delfin, ballena}, {gato, zorro, tigre}, {leon, lobo, elefante}, {rinoceronte, jirafa, hipopotamo}, {cocodrilo, serpiente, tortuga}, {cebra, jirafa, mono}, {panda, oso, conejo}, {camello, murcielago, canguro}, {koala, pinguino, loro}, {rana, sapo, delfin}, {ballena, zorro, tigre}, {leon, lobo, elefante}, {rinoceronte, jirafa, hipopotamo}, {cocodrilo, serpiente, tortuga}, {cebra, jirafa, mono}, {panda, oso, conejo}, {camello, murcielago, canguro}, {koala, pinguino, loro}, {perro, sapo, delfin}, {gato, ballena, zorro}, {tigre, leon, lobo}, {elefante, rinoceronte, jirafa}, {hipopotamo, cocodrilo, serpiente}, {tortuga, cebra, jirafa}, {mono, panda, oso}, {conejo, camello, murcielago}, {canguro, koala, pinguino}, {loro, perro, gato}, {rana, sapo, delfin}, {ballena, zorro, tigre}, {leon, lobo, elefante}, {rinoceronte, jirafa, hipopotamo}, {cocodrilo, serpiente, tortuga}, {cebra, jirafa, mono}, {panda, oso, conejo}, {camello, murcielago, canguro}, {koala, pinguino, loro}, {perro, sapo, delfin}, {gato, ballena, zorro}};
 
-parte = {{caiman, capibara, loro}, {tigre, loro, capibara}, {tigre, cebra, panteranegra}}
+parte = {{ballena, zorro, tigre}, {leon, lobo, elefante}, {rinoceronte, jirafa, hipopotamo}, {cocodrilo, serpiente, tortuga}, {cebra, jirafa, mono}};
 
-parte = {{panteranegra, cocodrilo, loro}, {leon, panteranegra, cebra}, {cocodrilo, capibara, loro}}
+parte = {{gato, ballena, zorro}, {tigre, leon, lobo}, {elefante, rinoceronte, jirafa}, {hipopotamo, cocodrilo, serpiente}, {tortuga, cebra, jirafa}};
 
-parte = {{boa, caiman, capibara}, {leon, caiman, loro}, {leon, cocodrilo, boa}}
+parte = {{rana, sapo, delfin}, {ballena, zorro, tigre}, {leon, lobo, elefante}, {rinoceronte, jirafa, hipopotamo}, {cocodrilo, serpiente, tortuga}};
+
+parte = {{gato, rana, sapo}, {perro, delfin, ballena}, {gato, zorro, tigre}, {leon, lobo, elefante}, {rinoceronte, jirafa, hipopotamo}};
+
+parte = {{panda, oso, conejo}, {camello, murcielago, canguro}, {koala, pinguino, loro}, {perro, sapo, delfin}, {gato, ballena, zorro}};
+
+parte = {{mono, panda, oso}, {conejo, camello, murcielago}, {canguro, koala, pinguino}, {loro, perro, gato}, {rana, sapo, delfin}};
+
+parte = {{cebra, jirafa, mono}, {panda, oso, conejo}, {camello, murcielago, canguro}, {koala, pinguino, loro}, {perro, sapo, delfin}};
+
+parte = {{cocodrilo, serpiente, tortuga}, {cebra, jirafa, mono}, {panda, oso, conejo}, {camello, murcielago, canguro}, {koala, pinguino, loro}};

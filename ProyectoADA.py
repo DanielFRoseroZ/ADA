@@ -19,6 +19,7 @@
 #Se crea una clase escena, a la cual pertenecerán todas las escenas que hacen parte del espectaculo.
 #Una escena cuenta con una lista de animales que participan en ella y la parte del espectaculo a la que pertenece.
 #La parte del espectaculo a la que pertenecen se asigna de forma arbitraria, este valor se utilizará luego para ordenar las escenas.
+
 class Escena:
 
     def __init__(self, lista, parte):
@@ -48,7 +49,7 @@ for i, animal in enumerate(animales_unir):
     animales[animal.replace(" ", "")] = int(grandezas_unir[i])
 
 # Cantidad de partes
-m = int(lineas[2].split("m = ")[1][0])
+m = int(lineas[2].split("m = ")[1][:-1])
 
 # Crea una lista con todas las partes\
 partes = []
@@ -84,15 +85,6 @@ def sum_escena(escena,animales):
         suma += animales[animal]
     return suma
 
-def max_escena(escena,animales):
-    '''
-    Funcion que retorna la grandeza del animal de mayor grandeza que participa en una escena.
-    Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
-    Retorna la suma de las grandeza de los animales que participan en la escena.
-    '''
-    maximo = animales[escena.lista[2]]
-    return maximo
-
 def ordenar_escena(escena, animales):
     '''
     Funcion que ordena los 3 animales que participan en una escena de forma ascendente.
@@ -110,6 +102,15 @@ def ordenar_escena(escena, animales):
             j -= 1
         escena.lista[j+1] = key
     return escena
+
+def max_escena(escena,animales):
+    '''
+    Funcion que busca la grandeza del animal de mayor grandeza que participa en una escena.
+    Recibe como parametros una escena y el diccionario de animales con sus respectivas grandezas.
+    Retorna la grandeza individual mas grande de la escena.
+    '''
+    maximo = animales[escena.lista[2]]
+    return maximo
 
 def suma_total_parte(parte, animales):
     '''
